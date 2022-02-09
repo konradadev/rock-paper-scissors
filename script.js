@@ -2,7 +2,7 @@
 
 function getComputerMove(){
     let min=Math.ceil(1);
-    let max=Math.floor(4);//equivalent to 1 <= x < 4
+    let max=Math.floor(4);
     return Math.floor(Math.random()*(max-min)+min);
 }
 
