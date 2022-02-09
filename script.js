@@ -9,13 +9,10 @@ function getComputerMove(){
 function computerPlay(){
     switch (getComputerMove()){
         case 1:
-            computerSelectionInt=1;
             return "Rock";
         case 2:
-            computerSelectionInt=1;
             return "Paper";
         case 3:
-            computerSelectionInt=1;
             return "Scissors";
     }
 }
