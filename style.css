@@ -1,0 +1,117 @@
+body{
+    margin:0;
+    min-height:100vh;
+    font-family: Roboto, "Trebuchet MS", "DejaVu Serif", serif;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(243, 225, 122);
+}
+
+.container{
+    margin-top:40px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: goldenrod;
+    border-radius: 15px;
+}
+
+.footer{
+    height:92px;
+    width:100%;
+    background-color: goldenrod;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #38369a;
+    font-weight:500;
+}
+
+h1{
+    font-size:72px;
+    font-weight: 900;
+    color:#38369a;
+    text-shadow:3px 3px #5d5cc2;
+}
+
+.gamesplayed{
+    font-size:36px;
+    font-weight: 900;
+    color:#5d5cc2;
+    text-shadow:2px 2px #38369a;
+}
+
+.buttons{
+    display:flex;
+}
+
+button{
+    width:300px;
+    height:300px;
+    padding:25px;
+    margin: 0px 20px;
+    background-color: rgb(243, 225, 122);
+    border-radius: 15px;
+    border-width: 15px;
+    border-color:#38369a;
+    border-style: outset;
+    flex-shrink:1;
+}
+
+button:hover{
+    border-style: inset;
+    background-color: rgb(255, 218, 123);
+    padding:5px;
+}
+
+/* special padding to make icons look centered/scaled properly */
+button[data-move="rock"]{
+    padding:40px;
+}
+
+button[data-move="rock"]:hover{
+    padding:20px;
+}
+
+button[data-move="paper"]{
+    padding-left:35px;
+    padding-right:15px;
+}
+
+/* prevents clicking on img instead of button in js script */
+button > * {
+    pointer-events: none;
+}
+
+img{
+    max-width:100%;
+    max-height:100%;
+}
+
+a{
+    color:#38369a;
+}
+
+a:hover{
+    color:#8684c7;
+}
+
+/*classes used by script*/
+.resultcontainer{
+    width:900px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.result{
+    font-size: 36px;
+    color:#38369a;
+    text-align: center;
+}

@@ -9,55 +9,59 @@ function getComputerMove(){
 function computerPlay(){
     switch (getComputerMove()){
         case 1:
-            return "Rock";
+            return "rock";
         case 2:
-            return "Paper";
+            return "paper";
         case 3:
-            return "Scissors";
+            return "scissors";
     }
 }
 
-function playRound(playerSelection,computerSelection){
-    playerSelection=playerSelection.toLowerCase();
-    playerSelection=playerSelection[0].toUpperCase()+playerSelection.slice(1);
+function getPlayerMove(e){
+    return e.target.getAttribute("data-move");
+}
+
+function getGameResult(e){
+    const computerSelection = computerPlay();
+    const playerSelection = getPlayerMove(e);
 
     let roundWinner;
     switch(computerSelection){
-        case "Rock":
+        case "rock":
             switch(playerSelection){
-                case "Rock":
+                case "rock":
                     roundWinner = "tie";
                     break;
-                case "Paper":
+                case "paper":
                     roundWinner = "player";
                     break;
-                case "Scissors":
+                case "scissors":
                     roundWinner = "computer";
                     break;
             }
             break;
-        case "Paper":
+        case "paper":
             switch(playerSelection){
-                case "Rock":
+                case "rock":
                     roundWinner = "computer";
                     break;
-                case "Paper":
+                case "paper":
                     roundWinner = "tie";
                     break;
-                case "Scissors":
+                case "scissors":
                     roundWinner = "playerScissors";//ensures grammaticaly correct result
                     break;
             }
             break;
-        case "Scissors":
+        case "scissors":
             switch(playerSelection){
-                case "Rock":
+                case "rock":
                     roundWinner = "player";
                     break;
-                case "Paper":
+                case "paper":
                     roundWinner = "computerScissors";//ensures grammaticaly correct result
                     break;
-                case "Scissors":
+                case "scissors":
                     roundWinner = "tieScissors";//ensures grammaticaly correct result
                     break;
             }
@@ -67,50 +71,52 @@ function playRound(playerSelection,computerSelection){
     let roundResult;
     switch(roundWinner){
         case "player":
-            roundResult=`You Win! ${playerSelection} beats ${computerSelection}`;
+            roundResult=`You Win: ${playerSelection} beats ${computerSelection}`;
             break;
         case "playerScissors":
-            roundResult=`You Win! ${playerSelection} beat ${computerSelection}`;//ensures grammaticaly correct result
+            roundResult=`You Win: ${playerSelection} beat ${computerSelection}`;//ensures grammaticaly correct result
             break;
         case "computer":
-            roundResult=`You Lose! ${computerSelection} beats ${playerSelection}`;
+            roundResult=`You Lose: ${computerSelection} beats ${playerSelection}`;
             break;
         case "computerScissors":
-            roundResult=`You Lose! ${computerSelection} beat ${playerSelection}`;//ensures grammaticaly correct result
+            roundResult=`You Lose: ${computerSelection} beat ${playerSelection}`;//ensures grammaticaly correct result
             break;
         case "tie":
-            roundResult=`It's a Tie! ${playerSelection} is equal to ${computerSelection}`;
+            roundResult=`It's a Tie: ${playerSelection} is equal to ${computerSelection}`;
             break;
         case "tieScissors":
-            roundResult=`It's a Tie! ${playerSelection} are equal to ${computerSelection}`;//ensures grammaticaly correct result
+            roundResult=`It's a Tie: ${playerSelection} are equal to ${computerSelection}`;//ensures grammaticaly correct result
             break;
     }
 
     return roundResult;
 }
 
-function checkPlayerSelection(playerSelection){
-    playerSelection=playerSelection.toLowerCase();
-    if (playerSelection==="rock" || playerSelection==="paper" || playerSelection==="scissors"){
-        return 1;
+function showGameResult(e){
+    const container = document.querySelector(".container");
+
+    const resultContainer = document.createElement("div");
+    resultContainer.setAttribute("class", "resultcontainer");
+
+    const result = document.createElement("p");
+    result.setAttribute("class", "result");
+
+    const lastContainerChild = container.lastElementChild;
+    const lastContainerChildClass = lastContainerChild.getAttribute("class");
+    if(lastContainerChildClass === "resultcontainer"){
+        document.querySelector(".result").textContent = getGameResult(e);
     }else{
-        return 0;
+        result.textContent = getGameResult(e);
+        resultContainer.appendChild(result);
+        container.appendChild(resultContainer);
     }
+
+    gamesPlayed++;
+    const gamesCounter = document.querySelector(".gamesplayed");
+    gamesCounter.textContent = `Games played: ${gamesPlayed}`;
 }
 
-function game(){
-    for(let i=0;i<5;i++){
-        let playerSelection=prompt("Choose your move");
-        //input error prevention
-        let checkInput=checkPlayerSelection(playerSelection);
-        while (checkInput!=1){
-            playerSelection=prompt("Wrong move! Type in rock, paper or scissors");
-            checkInput=checkPlayerSelection(playerSelection);
-        }
-
-        let computerSelection=computerPlay();
-        console.log(playRound(playerSelection,computerSelection));
-    }
-}
-
-game();
+let gamesPlayed=0;
+const buttons = document.querySelectorAll("button");
+buttons.forEach(button => button.addEventListener("click", showGameResult));
